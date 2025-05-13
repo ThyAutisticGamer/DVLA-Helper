@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DVLA Report Helper</title>
+</head>
+<body>
+  <h1>DVLA Untaxed Vehicle Report Helper</h1>
+  <form id="helperForm">
+    <label>
+      Vehicle Registration:
+      <input type="text" id="reg" required>
+    </label><br><br>
+    <label>
+      Location of Vehicle:
+      <input type="text" id="location" required>
+    </label><br><br>
+    <label>
+      Description of Vehicle:
+      <input type="text" id="description" required>
+    </label><br><br>
+    <button type="submit">Copy Info and Open DVLA Page</button>
+  </form>
+
+  <script>
+    document.getElementById('helperForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const reg = document.getElementById('reg').value;
+      const location = document.getElementById('location').value;
+      const description = document.getElementById('description').value;
+
+      const fullText = `Vehicle Registration: ${reg}\nLocation: ${location}\nDescription: ${description}`;
+
+      // Copy to clipboard
+      navigator.clipboard.writeText(fullText).then(() => {
+        alert('Your info has been copied. You’ll be taken to the DVLA site—paste it into the form.');
+        window.open('https://contact.dvla.gov.uk/report-untaxed-vehicle', '_blank');
+      }).catch(err => {
+        alert('Error copying to clipboard. Please copy manually:\n\n' + fullText);
+      });
+    });
+  </script>
+</body>
+</html>
